@@ -8,7 +8,6 @@
   <meta property="og:title" content="You're Invited — Suhoor at Signature Villa">
   <meta property="og:description" content="An intimate rooftop gathering under the Cairo night sky. February 22, 2026.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&q=80">
   <link rel="icon" href="https://signaturestays.io/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,10 +19,10 @@
       --gold: #C9A96E;
       --gold-light: #E8D5A8;
       --cream: #FAF7F4;
-      --dark: #0F0C0A;
+      --dark: #0D0B09;
+      --dark-card: #151210;
       --text: #2D2420;
       --text-light: #7A6D65;
-      --text-faint: #A89B93;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,11 +32,33 @@
       background: var(--dark);
       color: #FFF;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ═══ THE INVITATION ═══ */
+    /* ═══ STARS / PARTICLES ═══ */
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-    /* — Cover — */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #FFF;
+      border-radius: 50%;
+      animation: twinkle var(--dur) ease-in-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: var(--brightness); }
+    }
+
+    /* ═══ COVER ═══ */
     .cover {
       min-height: 100vh;
       display: flex;
@@ -45,22 +66,9 @@
       justify-content: center;
       position: relative;
       overflow: hidden;
-    }
-
-    .cover-bg {
-      position: absolute;
-      inset: 0;
-      background: url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1920&q=80') center/cover;
-    }
-
-    .cover-bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg,
-        rgba(15,12,10,0.3) 0%,
-        rgba(15,12,10,0.6) 50%,
-        rgba(15,12,10,0.95) 100%);
+      background: radial-gradient(ellipse at 50% 80%, rgba(183,99,73,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 50% 0%, rgba(201,169,110,0.06) 0%, transparent 50%),
+                  var(--dark);
     }
 
     .cover-inner {
@@ -75,10 +83,10 @@
       width: 140px;
       margin: 0 auto 3rem;
       filter: brightness(0) invert(1);
-      opacity: 0.85;
+      opacity: 0.8;
     }
 
-    .cover-inner .pre {
+    .eyebrow {
       font-size: 0.7rem;
       letter-spacing: 0.35em;
       text-transform: uppercase;
@@ -87,18 +95,37 @@
       margin-bottom: 1.5rem;
     }
 
-    .cover-inner h1 {
+    /* Animated crescent */
+    .crescent-wrap {
+      margin: 0 auto 1.5rem;
+      width: 44px;
+      height: 44px;
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .cover h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(3rem, 8vw, 5.5rem);
       font-weight: 400;
       line-height: 1.05;
       letter-spacing: -0.02em;
-      margin-bottom: 0.3rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.3s;
     }
 
-    .cover-inner h1 em {
+    .cover h1 em {
       font-style: italic;
       color: var(--gold);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .thin-line {
@@ -106,7 +133,9 @@
       height: 1px;
       background: var(--gold);
       margin: 2rem auto;
-      opacity: 0.6;
+      opacity: 0.5;
+      animation: fadeUp 1s ease forwards 0.6s;
+      opacity: 0;
     }
 
     .date-block {
@@ -115,14 +144,16 @@
       color: rgba(255,255,255,0.85);
       letter-spacing: 0.02em;
       line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.8s;
     }
 
     .date-block .small {
       font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.35);
       display: block;
       margin-top: 0.3rem;
     }
@@ -131,15 +162,16 @@
       display: inline-block;
       margin-top: 3rem;
       padding: 0.9rem 3rem;
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 50px;
       color: #FFF;
       text-decoration: none;
       font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      font-weight: 400;
       transition: all 0.3s;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1s;
     }
 
     .cover-cta:hover {
@@ -147,149 +179,200 @@
       border-color: var(--primary);
     }
 
-    /* — Photo strip — */
-    .photo-strip {
-      height: 55vh;
-      min-height: 320px;
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .scroll-hint .line {
+      width: 1px;
+      height: 40px;
+      margin: 0 auto;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.2; transform: scaleY(0.8); }
+      50% { opacity: 0.5; transform: scaleY(1); }
+    }
+
+    /* ═══ DIVIDER WITH GLOW ═══ */
+    .glow-divider {
+      height: 120px;
       position: relative;
-      overflow: hidden;
+      background: linear-gradient(180deg, var(--dark) 0%, var(--cream) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .photo-strip img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .glow-divider .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 20px var(--gold), 0 0 60px rgba(201,169,110,0.3);
     }
 
-    /* — The body of the invitation — */
+    /* ═══ INVITE BODY ═══ */
     .invite-body {
       background: var(--cream);
       color: var(--text);
-      padding: 5rem 2rem;
+      padding: 4rem 2rem 5rem;
     }
 
-    .invite-body-inner {
-      max-width: 560px;
+    .invite-inner {
+      max-width: 540px;
       margin: 0 auto;
       text-align: center;
     }
 
-    .invite-body .crescent {
-      width: 36px;
-      height: 36px;
-      margin: 0 auto 2rem;
-      opacity: 0.5;
-    }
-
-    .invite-body h2 {
+    .invite-inner h2 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
       font-weight: 400;
       margin-bottom: 1.5rem;
-      line-height: 1.35;
+      line-height: 1.4;
       color: var(--text);
     }
 
-    .invite-body .body-text {
-      font-size: 0.95rem;
+    .invite-inner .body-text {
+      font-size: 0.92rem;
       color: var(--text-light);
       line-height: 1.9;
       margin-bottom: 2.5rem;
     }
 
-    .invite-details {
+    .details-list {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1rem;
       padding: 2rem 0;
       border-top: 1px solid rgba(0,0,0,0.06);
       border-bottom: 1px solid rgba(0,0,0,0.06);
       margin-bottom: 2.5rem;
     }
 
-    .invite-detail-row {
+    .detail-row {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
-      font-size: 0.9rem;
+      gap: 0.7rem;
+      font-size: 0.88rem;
       color: var(--text);
     }
 
-    .invite-detail-row svg {
+    .detail-row svg {
       width: 16px;
       height: 16px;
       color: var(--primary);
       flex-shrink: 0;
-      opacity: 0.7;
-    }
-
-    .invite-detail-row a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    .invite-detail-row a:hover {
-      text-decoration: underline;
+      opacity: 0.65;
     }
 
     .map-frame {
       width: 100%;
-      height: 280px;
-      border-radius: 16px;
+      height: 260px;
+      border-radius: 14px;
       border: 1px solid rgba(0,0,0,0.06);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
 
     .map-link {
       display: inline-block;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--primary);
       text-decoration: none;
       letter-spacing: 0.05em;
-      margin-bottom: 3rem;
     }
 
     .map-link:hover { text-decoration: underline; }
 
-    /* — Second photo — */
-    .photo-strip-2 {
-      height: 40vh;
-      min-height: 260px;
+    /* ═══ QUOTE SECTION ═══ */
+    .quote-section {
+      padding: 5rem 2rem;
+      text-align: center;
       position: relative;
-      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 50%, rgba(183,99,73,0.06) 0%, transparent 70%),
+                  var(--dark);
     }
 
-    .photo-strip-2 img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .photo-strip-2 .overlay-text {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15,12,10,0.5);
-    }
-
-    .photo-strip-2 .overlay-text p {
+    .quote-section blockquote {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      color: #FFF;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: rgba(255,255,255,0.7);
       max-width: 500px;
-      text-align: center;
-      padding: 0 2rem;
-      line-height: 1.6;
+      margin: 0 auto;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-section blockquote span {
+      display: block;
+      margin-top: 1.2rem;
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Floating light orbs */
+    .orbs {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.08;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+
+    .orb:nth-child(1) {
+      width: 200px; height: 200px;
+      background: var(--gold);
+      top: 20%; left: 10%;
+      animation-delay: 0s;
+    }
+
+    .orb:nth-child(2) {
+      width: 150px; height: 150px;
+      background: var(--primary);
+      bottom: 20%; right: 15%;
+      animation-delay: -3s;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -20px); }
     }
 
     /* ═══ RSVP ═══ */
     .rsvp {
       padding: 5rem 2rem;
-      background: var(--dark);
+      background: var(--dark-card);
+      position: relative;
+    }
+
+    .rsvp::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 200px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.3;
     }
 
     .rsvp-inner {
@@ -310,13 +393,12 @@
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
       font-weight: 400;
-      color: #FFF;
       margin-bottom: 0.3rem;
     }
 
     .rsvp .note {
       font-size: 0.8rem;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.3);
       margin-bottom: 2.5rem;
     }
 
@@ -330,44 +412,33 @@
       font-size: 0.7rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.35);
       margin-bottom: 0.4rem;
     }
 
-    .field input,
-    .field select,
-    .field textarea {
+    .field input, .field select, .field textarea {
       width: 100%;
       padding: 0.85rem 1rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
       border-radius: 10px;
       color: #FFF;
       font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       outline: none;
       transition: border-color 0.2s;
     }
 
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      border-color: rgba(183,99,73,0.5);
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: rgba(183,99,73,0.4);
     }
 
-    .field input::placeholder,
-    .field textarea::placeholder {
-      color: rgba(255,255,255,0.2);
+    .field input::placeholder, .field textarea::placeholder {
+      color: rgba(255,255,255,0.18);
     }
 
-    .field select option {
-      background: #1a1614;
-    }
-
-    .field textarea {
-      resize: vertical;
-      min-height: 70px;
-    }
+    .field select option { background: var(--dark); }
+    .field textarea { resize: vertical; min-height: 70px; }
 
     .row {
       display: grid;
@@ -407,52 +478,50 @@
       font-weight: 400;
       margin-bottom: 0.8rem;
     }
-    .success p {
-      color: rgba(255,255,255,0.45);
-      font-size: 0.9rem;
-      line-height: 1.7;
-    }
+    .success p { color: rgba(255,255,255,0.4); font-size: 0.9rem; line-height: 1.7; }
 
     /* ═══ FOOTER ═══ */
     .foot {
       padding: 2.5rem 2rem;
       text-align: center;
       background: var(--dark);
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(255,255,255,0.04);
     }
 
     .foot img {
       width: 100px;
       margin: 0 auto 0.8rem;
       filter: brightness(0) invert(1);
-      opacity: 0.4;
+      opacity: 0.3;
     }
 
-    .foot p {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.2);
-    }
+    .foot p { font-size: 0.7rem; color: rgba(255,255,255,0.15); }
+    .foot a { color: rgba(255,255,255,0.25); text-decoration: none; }
 
-    .foot a { color: rgba(255,255,255,0.3); text-decoration: none; }
-
-    /* ═══ RESPONSIVE ═══ */
     @media (max-width: 640px) {
       .row { grid-template-columns: 1fr; }
-      .photo-strip { height: 40vh; min-height: 240px; }
-      .photo-strip-2 { height: 35vh; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
   <!-- Cover -->
   <section class="cover">
-    <div class="cover-bg"></div>
     <div class="cover-inner">
       <img src="https://signaturestays.io/logo.svg" alt="Signature Stays" class="logo"
-        onerror="this.outerHTML='<div style=\'font-family:Playfair Display,serif;font-size:1.3rem;color:var(--gold-light);margin-bottom:3rem;opacity:0.85\'>Signature Stays</div>'">
+        onerror="this.outerHTML='<div style=\'font-family:Playfair Display,serif;font-size:1.3rem;color:var(--gold-light);margin-bottom:3rem;opacity:0.8\'>Signature Stays</div>'">
 
-      <p class="pre">You are invited to</p>
+      <p class="eyebrow">You are invited to</p>
+
+      <div class="crescent-wrap">
+        <svg viewBox="0 0 64 64" fill="none" width="44" height="44">
+          <path d="M42 8C28.745 8 18 18.745 18 32s10.745 24 24 24c3.37 0 6.588-.697 9.5-1.955C45.926 50.336 42 41.608 42 32s3.926-18.336 9.5-22.045A23.87 23.87 0 0042 8z" fill="#C9A96E" opacity="0.7"/>
+        </svg>
+      </div>
+
       <h1>Suhoor<br>on the <em>Rooftop</em></h1>
       <div class="thin-line"></div>
       <div class="date-block">
@@ -462,65 +531,58 @@
       </div>
       <a href="#rsvp" class="cover-cta">Confirm Attendance</a>
     </div>
+    <div class="scroll-hint"><div class="line"></div></div>
   </section>
 
-  <!-- Photo -->
-  <div class="photo-strip">
-    <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=1920&q=80" alt="String lights" loading="lazy">
-  </div>
+  <!-- Divider -->
+  <div class="glow-divider"><div class="dot"></div></div>
 
-  <!-- Invitation body -->
+  <!-- Invite body -->
   <section class="invite-body">
-    <div class="invite-body-inner">
-
-      <svg class="crescent" viewBox="0 0 64 64" fill="none">
-        <path d="M42 8C28.745 8 18 18.745 18 32s10.745 24 24 24c3.37 0 6.588-.697 9.5-1.955C45.926 50.336 42 41.608 42 32s3.926-18.336 9.5-22.045A23.87 23.87 0 0042 8z" fill="#B76349"/>
-      </svg>
-
-      <h2>Good food. Chill vibes. Great company.</h2>
-
+    <div class="invite-inner">
+      <h2>Good food. Chill vibes.<br>Great company.</h2>
       <p class="body-text">
         We're hosting a Suhoor on the rooftop of Signature Villa — good food, easy conversation, and the kind of night where you actually get to connect with people. No stiff formalities, just a beautiful setting, a proper spread, and friends old and new under the Cairo sky.
       </p>
 
-      <div class="invite-details">
-        <div class="invite-detail-row">
+      <div class="details-list">
+        <div class="detail-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sunday, February 22nd, 2026
         </div>
-        <div class="invite-detail-row">
+        <div class="detail-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           10:00 PM onwards
         </div>
-        <div class="invite-detail-row">
+        <div class="detail-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           Signature Villa Rooftop, New Cairo
         </div>
-        <div class="invite-detail-row">
+        <div class="detail-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
           Catered spread — just bring yourself
         </div>
       </div>
 
-      <iframe
-        class="map-frame"
+      <iframe class="map-frame"
         src="https://maps.google.com/maps?q=30.0376730,31.4636233&z=15&output=embed"
-        allowfullscreen=""
-        loading="lazy">
-      </iframe>
+        allowfullscreen loading="lazy"></iframe>
       <br>
       <a href="https://maps.app.goo.gl/ETUUMGGyA2PYLnUE6?g_st=ic" target="_blank" class="map-link">Get directions</a>
-
     </div>
   </section>
 
-  <!-- Second photo -->
-  <div class="photo-strip-2">
-    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80" alt="Dinner table" loading="lazy">
-    <div class="overlay-text">
-      <p>Good food, rooftop views, and the kind of conversations that stay with you.</p>
+  <!-- Quote -->
+  <section class="quote-section">
+    <div class="orbs">
+      <div class="orb"></div>
+      <div class="orb"></div>
     </div>
-  </div>
+    <blockquote>
+      Good food, rooftop views, and the kind of conversations that stay with you.
+      <span>Ramadan Kareem</span>
+    </blockquote>
+  </section>
 
   <!-- RSVP -->
   <section class="rsvp" id="rsvp">
@@ -531,64 +593,23 @@
 
       <form id="rsvpForm" onsubmit="handleSubmit(event)">
         <div class="row">
-          <div class="field">
-            <label>Full Name *</label>
-            <input type="text" name="name" required placeholder="Your name">
-          </div>
-          <div class="field">
-            <label>Email *</label>
-            <input type="email" name="email" required placeholder="you@example.com">
-          </div>
+          <div class="field"><label>Full Name *</label><input type="text" name="name" required placeholder="Your name"></div>
+          <div class="field"><label>Email *</label><input type="email" name="email" required placeholder="you@example.com"></div>
         </div>
-
         <div class="row">
-          <div class="field">
-            <label>Phone *</label>
-            <input type="tel" name="phone" required placeholder="+20 xxx xxx xxxx">
-          </div>
-          <div class="field">
-            <label>Guests</label>
-            <select name="guests">
-              <option value="1">Just me</option>
-              <option value="2">+1</option>
-              <option value="3">+2</option>
-              <option value="4">+3</option>
-            </select>
+          <div class="field"><label>Phone *</label><input type="tel" name="phone" required placeholder="+20 xxx xxx xxxx"></div>
+          <div class="field"><label>Guests</label>
+            <select name="guests"><option value="1">Just me</option><option value="2">+1</option><option value="3">+2</option><option value="4">+3</option></select>
           </div>
         </div>
-
-        <div class="field">
-          <label>Dietary restrictions</label>
-          <input type="text" name="dietary" placeholder="Allergies, vegetarian, etc.">
+        <div class="field"><label>Dietary restrictions</label><input type="text" name="dietary" placeholder="Allergies, vegetarian, etc."></div>
+        <div class="field"><label>How did you hear about Signature Stays?</label>
+          <select name="source"><option value="">Select...</option><option value="friend">Friend or family</option><option value="airbnb">Airbnb</option><option value="social">Social media</option><option value="business">Business contact</option><option value="other">Other</option></select>
         </div>
-
-        <div class="field">
-          <label>How did you hear about Signature Stays?</label>
-          <select name="source">
-            <option value="">Select...</option>
-            <option value="friend">Friend or family</option>
-            <option value="airbnb">Airbnb</option>
-            <option value="social">Social media</option>
-            <option value="business">Business contact</option>
-            <option value="other">Other</option>
-          </select>
+        <div class="field"><label>Interested in investment opportunities?</label>
+          <select name="investor"><option value="">Select...</option><option value="yes">Yes, tell me more</option><option value="maybe">Maybe, I'd like to learn</option><option value="no">Just here for the evening</option></select>
         </div>
-
-        <div class="field">
-          <label>Interested in investment opportunities?</label>
-          <select name="investor">
-            <option value="">Select...</option>
-            <option value="yes">Yes, tell me more</option>
-            <option value="maybe">Maybe, I'd like to learn</option>
-            <option value="no">Just here for the evening</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Anything else?</label>
-          <textarea name="notes" placeholder="Special requests or just say hello..."></textarea>
-        </div>
-
+        <div class="field"><label>Anything else?</label><textarea name="notes" placeholder="Special requests or just say hello..."></textarea></div>
         <button type="submit" class="rsvp-btn" id="submitBtn">Confirm Attendance</button>
       </form>
 
@@ -599,14 +620,28 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="foot">
     <img src="https://signaturestays.io/logo.svg" alt="Signature Stays"
-      onerror="this.outerHTML='<div style=\'font-size:0.85rem;color:rgba(255,255,255,0.25);font-family:Playfair Display,serif;margin-bottom:0.8rem\'>Signature Stays</div>'">
+      onerror="this.outerHTML='<div style=\'font-size:0.85rem;color:rgba(255,255,255,0.2);font-family:Playfair Display,serif;margin-bottom:0.8rem\'>Signature Stays</div>'">
     <p>&copy; 2026 <a href="https://signaturestays.io">signaturestays.io</a></p>
   </footer>
 
   <script>
+    // Generate twinkling stars
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--dur', (3 + Math.random() * 4) + 's');
+      star.style.setProperty('--brightness', (0.3 + Math.random() * 0.7).toString());
+      star.style.animationDelay = (Math.random() * 5) + 's';
+      star.style.width = star.style.height = (1 + Math.random() * 2) + 'px';
+      starsEl.appendChild(star);
+    }
+
+    // Form
     const GOOGLE_SCRIPT_URL = '';
 
     async function handleSubmit(e) {
@@ -623,19 +658,13 @@
 
       try {
         if (GOOGLE_SCRIPT_URL) {
-          fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST', mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
+          fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
-
         await fetch('https://formsubmit.co/ajax/adam.mansour2695@gmail.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ ...payload, _subject: 'Suhoor RSVP: ' + payload.name, _template: 'table' })
         });
-
         form.style.display = 'none';
         success.classList.add('show');
       } catch (err) {
