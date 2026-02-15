@@ -531,7 +531,7 @@
       <h2>RSVP</h2>
       <p class="sub">Kindly confirm your attendance by February 20th</p>
 
-      <form id="rsvpForm" onsubmit="handleSubmit(event)">
+      <form id="rsvpForm" onsubmit="handleSubmit(event)" action="https://formsubmit.co/adam.mansour2695@gmail.com" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label>Full Name *</label>
@@ -619,7 +619,7 @@
       });
     });
 
-    // Form submission — sends to Google Sheets via Apps Script
+    // Form submission — sends to Google Sheets via Apps Script + FormSubmit email backup
     // Replace GOOGLE_SCRIPT_URL with your deployed Google Apps Script web app URL
     const GOOGLE_SCRIPT_URL = ''; // TODO: Add Google Apps Script URL
 
@@ -636,6 +636,7 @@
       const payload = Object.fromEntries(data);
 
       try {
+        // Send to Google Sheets (primary)
         if (GOOGLE_SCRIPT_URL) {
           await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
@@ -645,10 +646,21 @@
           });
         }
 
+        // Send to FormSubmit (email backup)
+        await fetch('https://formsubmit.co/ajax/adam.mansour2695@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            ...payload,
+            _subject: '🌙 New Suhoor RSVP: ' + payload.name,
+            _template: 'table'
+          })
+        });
+
         form.style.display = 'none';
         success.classList.add('show');
       } catch (err) {
-        // Still show success (no-cors won't return readable response)
+        // Still show success
         form.style.display = 'none';
         success.classList.add('show');
       }
