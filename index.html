@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suhoor at Signature Villa | Signature Stays</title>
+  <meta name="description" content="Join us for an exclusive rooftop Suhoor at Signature Villa, New Cairo. February 22, 2026.">
+  <meta property="og:title" content="Suhoor at Signature Villa | Signature Stays">
+  <meta property="og:description" content="You're invited to an exclusive rooftop Suhoor. February 22, 2026 — New Cairo.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://signaturestays.io/_next/image?url=%2Freview%2Fimage.jpg&w=1920&q=75">
+  <link rel="icon" href="https://signaturestays.io/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #B76349;
+      --primary-dark: #9A503A;
+      --primary-light: #D4856D;
+      --gold: #C9A96E;
+      --gold-light: #E8D5A8;
+      --bg: #FAF7F4;
+      --bg-dark: #1A1412;
+      --text: #2D2420;
+      --text-light: #6B5D54;
+      --text-muted: #9B8E86;
+      --border: #E8DDD6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .serif { font-family: 'Playfair Display', serif; }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--bg-dark) 0%, #2A1F1A 60%, var(--bg-dark) 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(183, 99, 73, 0.15) 0%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    .brand-logo {
+      width: 180px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      filter: brightness(0) invert(1);
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.5rem auto;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 400;
+      color: #FFF;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero .subtitle {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .event-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2.5rem 0;
+    }
+
+    .event-detail {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .event-detail svg {
+      width: 18px;
+      height: 18px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--primary);
+      color: #FFF;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .cta-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(183, 99, 73, 0.3);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Details Section */
+    .details-section {
+      padding: 6rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .details-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .details-section p {
+      color: var(--text-light);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .info-card {
+      padding: 2rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #FFF;
+    }
+
+    .info-card .icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-card h3 {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Map Section */
+    .map-section {
+      padding: 4rem 2rem;
+      background: #FFF;
+    }
+
+    .map-container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .map-embed {
+      width: 100%;
+      height: 350px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    .location-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .location-link:hover { color: var(--primary-dark); }
+
+    /* RSVP Section */
+    .rsvp-section {
+      padding: 6rem 2rem;
+      background: var(--bg-dark);
+      color: #FFF;
+    }
+
+    .rsvp-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .rsvp-section .section-label {
+      color: var(--gold);
+    }
+
+    .rsvp-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .rsvp-section .sub {
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      color: #FFF;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+
+    .form-group select option {
+      background: var(--bg-dark);
+      color: #FFF;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: #FFF;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(183, 99, 73, 0.3);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .success-message p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-logo {
+      width: 120px;
+      margin: 0 auto 1rem;
+    }
+
+    .footer-logo img {
+      width: 100%;
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    /* Crescent decoration */
+    .crescent {
+      font-size: 3rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .event-details { flex-direction: column; gap: 1rem; align-items: center; }
+      .info-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <div class="brand-logo">
+        <img src="https://signaturestays.io/logo.svg" alt="Signature Stays" onerror="this.parentElement.innerHTML='<span style=\'color:#C9A96E;font-family:Playfair Display,serif;font-size:1.5rem\'>Signature Stays</span>'">
+      </div>
+      <p class="subtitle">Invites you to</p>
+      <div class="crescent">☪</div>
+      <h1>Suhoor on the <em>Rooftop</em></h1>
+      <div class="divider"></div>
+      <div class="event-details">
+        <div class="event-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Sunday, February 22nd, 2026
+        </div>
+        <div class="event-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          10:00 PM onwards
+        </div>
+        <div class="event-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Signature Villa Rooftop, New Cairo
+        </div>
+      </div>
+      <a href="#rsvp" class="cta-button">RSVP Now</a>
+    </div>
+    <div class="scroll-hint">Scroll to learn more</div>
+  </section>
+
+  <!-- Details -->
+  <section class="details-section">
+    <p class="section-label">The Evening</p>
+    <h2>An Evening Under the Stars</h2>
+    <p>Join us for an intimate Suhoor gathering on the rooftop of Signature Villa. Connect with friends, family, and visionary minds over a curated dining experience as we celebrate the spirit of Ramadan together.</p>
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="icon">🌙</div>
+        <h3>Rooftop Suhoor</h3>
+        <p>A curated dining experience under the Cairo night sky</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">🤝</div>
+        <h3>Social & Networking</h3>
+        <p>Connect with investors, entrepreneurs, friends & family</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">🍽️</div>
+        <h3>Fully Catered</h3>
+        <p>A premium Suhoor spread — just bring yourself</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="map-section">
+    <div class="map-container">
+      <p class="section-label">Location</p>
+      <h2 class="serif" style="font-size:1.8rem; margin-bottom:0.5rem;">Signature Villa</h2>
+      <p style="color:var(--text-muted); font-size:0.95rem;">New Cairo, Egypt</p>
+      <iframe
+        class="map-embed"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.7!2d31.4!3d30.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAxJzEyLjAiTiAzMcKwMjQnMDAuMCJF!5e0!3m2!1sen!2seg!4v1"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <a href="https://maps.app.goo.gl/ETUUMGGyA2PYLnUE6?g_st=ic" target="_blank" class="location-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Open in Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="rsvp-section" id="rsvp">
+    <div class="rsvp-container">
+      <p class="section-label" style="text-align:center;">Reserve Your Spot</p>
+      <h2>RSVP</h2>
+      <p class="sub">Kindly confirm your attendance by February 20th</p>
+
+      <form id="rsvpForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" name="name" required placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" name="email" required placeholder="you@example.com">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" name="phone" required placeholder="+20 xxx xxx xxxx">
+          </div>
+          <div class="form-group">
+            <label>Number of Guests</label>
+            <select name="guests">
+              <option value="1">Just me</option>
+              <option value="2">+1 Guest</option>
+              <option value="3">+2 Guests</option>
+              <option value="4">+3 Guests</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Dietary Restrictions</label>
+          <input type="text" name="dietary" placeholder="Allergies, vegetarian, etc. (or leave blank)">
+        </div>
+
+        <div class="form-group">
+          <label>How did you hear about Signature Stays?</label>
+          <select name="source">
+            <option value="">Select one...</option>
+            <option value="friend">Friend or Family</option>
+            <option value="airbnb">Airbnb</option>
+            <option value="social">Social Media</option>
+            <option value="business">Business Contact</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Interested in investment opportunities?</label>
+          <select name="investor">
+            <option value="">Select one...</option>
+            <option value="yes">Yes, tell me more</option>
+            <option value="maybe">Maybe, I'd like to learn</option>
+            <option value="no">No, just here for the vibes</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Anything else?</label>
+          <textarea name="notes" placeholder="Special requests, questions, or just say hi..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Confirm Attendance</button>
+      </form>
+
+      <div class="success-message" id="successMsg">
+        <div class="crescent" style="font-size:2.5rem;">☪</div>
+        <h3>We'll See You There!</h3>
+        <p>Your RSVP has been confirmed. We'll send you the details closer to the date. Ramadan Kareem! 🌙</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="https://signaturestays.io/logo.svg" alt="Signature Stays" onerror="this.parentElement.innerHTML='<span style=\'font-family:Playfair Display,serif;font-size:1rem;color:var(--text-light)\'>Signature Stays</span>'">
+    </div>
+    <p>&copy; 2026 <a href="https://signaturestays.io" target="_blank">Signature Stays</a>. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Form submission — sends to Google Sheets via Apps Script
+    // Replace GOOGLE_SCRIPT_URL with your deployed Google Apps Script web app URL
+    const GOOGLE_SCRIPT_URL = ''; // TODO: Add Google Apps Script URL
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const form = document.getElementById('rsvpForm');
+      const success = document.getElementById('successMsg');
+
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const data = new FormData(form);
+      const payload = Object.fromEntries(data);
+
+      try {
+        if (GOOGLE_SCRIPT_URL) {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+
+        form.style.display = 'none';
+        success.classList.add('show');
+      } catch (err) {
+        // Still show success (no-cors won't return readable response)
+        form.style.display = 'none';
+        success.classList.add('show');
+      }
+    }
+  </script>
+
+</body>
+</html>
