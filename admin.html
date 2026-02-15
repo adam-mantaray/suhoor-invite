@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suhoor RSVPs — Admin</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a0a; color: #e8e0d8; min-height: 100vh; padding: 2rem; }
+  h1 { font-family: 'Playfair Display', Georgia, serif; color: #B76349; margin-bottom: 0.5rem; font-size: 2rem; }
+  .stats { color: #999; margin-bottom: 2rem; font-size: 0.9rem; }
+  .stats span { color: #B76349; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  th { text-align: left; padding: 0.75rem 1rem; background: #1a1a1a; color: #B76349; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 0.75rem 1rem; border-bottom: 1px solid #1a1a1a; font-size: 0.9rem; }
+  tr:hover td { background: #111; }
+  .empty { text-align: center; padding: 3rem; color: #666; }
+  .refresh { background: #B76349; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+  .refresh:hover { background: #a0553d; }
+  .export { background: none; color: #B76349; border: 1px solid #B76349; padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-left: 0.5rem; }
+  .export:hover { background: #B76349; color: white; }
+  .actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .guest-count { background: #1a1a1a; padding: 1rem 1.5rem; border-radius: 8px; display: inline-block; margin-bottom: 1.5rem; }
+  .guest-count .number { font-size: 2.5rem; font-weight: 700; color: #B76349; }
+  .guest-count .label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Suhoor RSVPs</h1>
+  <p class="stats">February 22, 2026 · Signature Villa Rooftop</p>
+
+  <div class="guest-count">
+    <div class="number" id="totalGuests">—</div>
+    <div class="label">Total Guests</div>
+  </div>
+
+  <div class="actions">
+    <button class="refresh" onclick="loadRSVPs()">↻ Refresh</button>
+    <button class="export" onclick="exportCSV()">↓ Export CSV</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Guests</th>
+        <th>Message</th>
+        <th>Submitted</th>
+      </tr>
+    </thead>
+    <tbody id="rsvpBody">
+      <tr><td colspan="7" class="empty">Loading...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    const API = 'https://mellow-malamute-871.eu-west-1.convex.site/rsvps';
+    let rsvpData = [];
+
+    async function loadRSVPs() {
+      try {
+        const res = await fetch(API);
+        rsvpData = await res.json();
+        render(rsvpData);
+      } catch (e) {
+        document.getElementById('rsvpBody').innerHTML = '<tr><td colspan="7" class="empty">Failed to load</td></tr>';
+      }
+    }
+
+    function render(data) {
+      const tbody = document.getElementById('rsvpBody');
+      const totalEl = document.getElementById('totalGuests');
+
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="7" class="empty">No RSVPs yet</td></tr>';
+        totalEl.textContent = '0';
+        return;
+      }
+
+      let totalGuests = 0;
+      tbody.innerHTML = data.map((r, i) => {
+        const g = parseInt(r.guests) || 1;
+        totalGuests += g;
+        const d = new Date(r.submittedAt);
+        const date = d.toLocaleDateString('en-EG', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        return `<tr>
+          <td>${i + 1}</td>
+          <td>${esc(r.name)}</td>
+          <td>${esc(r.email)}</td>
+          <td>${esc(r.phone || '—')}</td>
+          <td>${esc(r.guests || '1')}</td>
+          <td>${esc(r.message || '—')}</td>
+          <td>${date}</td>
+        </tr>`;
+      }).join('');
+
+      totalEl.textContent = totalGuests;
+    }
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    function exportCSV() {
+      if (!rsvpData.length) return;
+      const header = 'Name,Email,Phone,Guests,Message,Submitted\n';
+      const rows = rsvpData.map(r =>
+        [r.name, r.email, r.phone || '', r.guests || '1', r.message || '', r.submittedAt]
+          .map(v => `"${String(v).replace(/"/g, '""')}"`)
+          .join(',')
+      ).join('\n');
+      const blob = new Blob([header + rows], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'suhoor-rsvps.csv';
+      a.click();
+    }
+
+    loadRSVPs();
+  </script>
+</body>
+</html>

@@ -643,6 +643,7 @@
 
     // Form
     const GOOGLE_SCRIPT_URL = '';
+    const CONVEX_RSVP_URL = 'https://mellow-malamute-871.eu-west-1.convex.site/rsvp';
 
     async function handleSubmit(e) {
       e.preventDefault();
@@ -660,6 +661,7 @@
         if (GOOGLE_SCRIPT_URL) {
           fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         }
+        fetch(CONVEX_RSVP_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         await fetch('https://formsubmit.co/ajax/adam.mansour2695@gmail.com,aafify@mantaray.digital', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
